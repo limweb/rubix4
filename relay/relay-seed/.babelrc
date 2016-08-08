@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "es2015-loose",
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "babel-relay-plugin-loader",
+    "react-hot-loader/babel",
+    "transform-runtime"
+  ],
+  "compact": true
+}

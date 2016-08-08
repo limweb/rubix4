@@ -1,0 +1,85 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+input AddTodoInput {
+  todo: String!
+  clientMutationId: String!
+}
+
+type AddTodoPayload {
+  todoEdge: TodoEdge
+  user: User
+  error: String
+  clientMutationId: String!
+}
+
+type Mutation {
+  addTodo(input: AddTodoInput!): AddTodoPayload
+  updateTodo(input: UpdateTodoInput!): UpdateTodoPayload
+  removeTodo(input: RemoveTodoInput!): RemoveTodoPayload
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  node(id: ID!): Node
+  user: User
+}
+
+input RemoveTodoInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type RemoveTodoPayload {
+  todoIdToBeDeleted: ID
+  user: User
+  clientMutationId: String!
+}
+
+type Todo implements Node {
+  id: ID!
+  _id: String
+  todo: String
+  completed: Boolean
+}
+
+type TodoConnection {
+  pageInfo: PageInfo!
+  edges: [TodoEdge]
+}
+
+type TodoEdge {
+  node: Todo
+  cursor: String!
+}
+
+input UpdateTodoInput {
+  id: ID!
+  todo: String!
+  completed: Boolean!
+  clientMutationId: String!
+}
+
+type UpdateTodoPayload {
+  todo: Todo
+  user: User
+  clientMutationId: String!
+}
+
+type User implements Node {
+  id: ID!
+  todos(after: String, first: Int, before: String, last: Int): TodoConnection
+  getTodo(id: String): Todo
+}

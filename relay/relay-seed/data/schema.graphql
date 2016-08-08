@@ -1,0 +1,20 @@
+schema {
+  query: Query
+}
+
+type Greetings {
+  hello: String
+}
+
+interface Node {
+  id: ID!
+}
+
+type Query {
+  node(id: ID!): Node
+  user: User
+}
+
+type User {
+  greetings: Greetings
+}
